@@ -1,22 +1,24 @@
 # Helloworld
 
-A Helloworld application implemented in node js using express. Best suited for
-testing network topologies.
+A Helloworld microservice implemented in node js using express that is best
+suited for testing network topologies.
 
-Current version: 0.0.5
+Current version: `0.0.5`
+
+dockerhub: `vincentjorgensen/node-helloworld:0.0.5`
 
 ## Environment variables
 
-|     Variable      |  Description          | Default            |
-| ----------------- | --------------------- | ------------------ |
-| SERVER\_PORT      | HTTP Listen Port      | 80                 |
-| SERVER\_SSL\_PORT | HTTPS Listen Port     | None               |
-| SSL\_KEY          | Path to SSL Key       | None               |
-| SSL\_CERT         | Path to SSL Cert      | None               |
-| SERVICE\_VERSION  | Arbitary string       | 0                  |
-| HOSTNAME          | Arbitary string       | localhost          |
-| REGION            | Arbitary string       | local              |
-| ZONE              | Arbitary string       | local-0            |
+|     Variable           |  Description            | Default                 |
+| ---------------------- | ----------------------- | ----------------------- |
+| SERVER\_PORT           | HTTP Listen Port        | 80                      |
+| SERVER\_SSL\_PORT      | HTTPS Listen Port       | None                    |
+| SSL\_KEY               | Path to SSL Key         | None                    |
+| SSL\_CERT              | Path to SSL Cert        | None                    |
+| SERVICE\_VERSION       | Arbitary string         | 0                       |
+| HOSTNAME               | Arbitary string         | localhost               |
+| REGION                 | Arbitary string         | local                   |
+| ZONE                   | Arbitary string         | local-0                 |
 
 ## Endpoints
 
@@ -38,6 +40,15 @@ Useful for healthcheck infrastructure
 Returns `{"state": "READY"}`
 
 ## Examples
+
+### Node
+
+If node is installed, you can run it on the command line like so:
+```
+SSL_KEY=./key.pem SSL_CERT=./cert.pem SERVER_SSL_PORT=8443 SERVER_PORT=8080 node server.js
+```
+
+The service can then reached on `localhost:8080` and `localhost:8443`.
 
 ### Docker Compose
 
