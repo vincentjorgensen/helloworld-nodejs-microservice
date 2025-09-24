@@ -1,12 +1,27 @@
-# Helloworld
+ Helloworld
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Environment variables](#environment-variables)
+- [Endpoints](#endpoints)
+   * [/](#)
+   * [/version](#version)
+   * [/healthz](#healthz)
+- [Examples](#examples)
+   * [Node](#node)
+   * [Docker Compose](#docker-compose)
+   * [Kubernetes](#kubernetes)
+
+<!-- TOC end -->
 
 A Helloworld microservice implemented in node js using express that is best
 suited for testing network topologies.
 
-Current version: `0.0.5`
+Current version: `0.1.0`
 
-dockerhub: `vincentjorgensen/node-helloworld:0.0.5`
+dockerhub: `vincentjorgensen/node-helloworld:0.1.0`
 
+<!-- TOC --><a name="environment-variables"></a>
 ## Environment variables
 
 |     Variable           |  Description            | Default                 |
@@ -20,27 +35,33 @@ dockerhub: `vincentjorgensen/node-helloworld:0.0.5`
 | REGION                 | Arbitary string         | local                   |
 | ZONE                   | Arbitary string         | local-0                 |
 
+<!-- TOC --><a name="endpoints"></a>
 ## Endpoints
 
+<!-- TOC --><a name=""></a>
 ### /
 
 Always returns `Hello World!\n`
 
+<!-- TOC --><a name="version"></a>
 ### /version
 
 Useful if Helloworld has multiple backends. `version` can be tailored using
-environmentment variables to indicate which backend is being hit.
+environment variables to indicate which backend is being hit.
 
 Returns `version: $SERVICE_VERSION, zone: $ZONE, region: $REGION, instance: $HOSTNAME, proto: (http|tls)\n`
 
+<!-- TOC --><a name="healthz"></a>
 ### /healthz
 
 Useful for healthcheck infrastructure
 
 Returns `{"state": "READY"}`
 
+<!-- TOC --><a name="examples"></a>
 ## Examples
 
+<!-- TOC --><a name="node"></a>
 ### Node
 
 If node is installed, you can run it on the command line like so:
@@ -48,8 +69,14 @@ If node is installed, you can run it on the command line like so:
 SSL_KEY=./key.pem SSL_CERT=./cert.pem SERVER_SSL_PORT=8443 SERVER_PORT=8080 node server.js
 ```
 
+You can use the following to generate a self-signed cert.
+```
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=any domain/CN=*' -keyout key.pem -out cert.pem
+```
+
 The service can then reached on `localhost:8080` and `localhost:8443`.
 
+<!-- TOC --><a name="docker-compose"></a>
 ### Docker Compose
 
 When used in combination with [Docker Mac Net
@@ -86,6 +113,7 @@ services:
     - /Volumes/Projects/k3d-calico-metallb/templates/example-ssl:/ssl:ro
 ```
 
+<!-- TOC --><a name="kubernetes"></a>
 ### Kubernetes
 
 Can be used to to see how the backend distributes traffic across the topology.
@@ -212,4 +240,3 @@ spec:
           name: http
 ...
 ```
-
