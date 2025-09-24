@@ -1,13 +1,18 @@
+// https requires fs
 let https = require('https');
 let fs = require("fs");
+
+// express
 let express = require('express'); 
 
-var ip = require("ip");
-var ip_addr=ip.address()
+// what is my ip?
+let ip = require("ip");
+let ip_addr=ip.address()
 
-//setup express app
+// setup express app
 let app = express()
 
+// helper function to set constants from env
 function GetEnvironmentVar(varname, defaultvalue) {
   var result = process.env[varname];
 	if (result!=undefined)
@@ -24,12 +29,12 @@ const instance = GetEnvironmentVar("HOSTNAME", "localhost")
 const zone = GetEnvironmentVar("ZONE", "local")
 const region = GetEnvironmentVar("REGION", "local-0")
 
-// Handling GET /hello request
+// Handling GET / request
 app.get("/", (req, res, next) => {
     res.send("Hello, world!\n");
 })
 
-// Handling GET /hello request
+// Handling GET /version request
 app.get("/version", (req, res, next) => {
   let proto = "http";
   if (req.socket.constructor.name == "TLSSocket") {
@@ -39,6 +44,7 @@ app.get("/version", (req, res, next) => {
 })
 
 
+// Handling GET /healthz request
 app.get("/healthz", (req, res, next) => {
     res.send('{"state": "READY"}');
 })
@@ -55,15 +61,16 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send({ error: err.message });
 });
 
+// http listener
 app.listen(port, (err)=>{
   if(err)
   throw err;
   console.log('listening on ' + ip.address() + ":" + port);
 });
 
-// Only start SSL server if port defined
+// Only start SSL listener if port defined
 if (process.env.SERVER_SSL_PORT) {
-  options = {
+  let options = {
     key: fs.readFileSync(process.env.SSL_KEY),
     cert: fs.readFileSync(process.env.SSL_CERT),
   };
