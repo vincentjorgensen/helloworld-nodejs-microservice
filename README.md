@@ -92,7 +92,7 @@ networks:
 services:
   helloworld:
     container_name: helloworld
-    image: vincentjorgensen/node-helloworld:0.0.5
+    image: vincentjorgensen/node-helloworld:0.1.0
     networks:
       default:
         ipv4_address: 192.168.96.19
@@ -110,7 +110,7 @@ services:
       SSL_CERT: /ssl/root.crt
     volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /Volumes/Projects/k3d-calico-metallb/templates/example-ssl:/ssl:ro
+    - /PATH/TO/example/ssl:/ssl:ro
 ```
 
 <!-- TOC --><a name="kubernetes"></a>
@@ -185,7 +185,7 @@ spec:
           value: us-west-1
         - name: SERVER_PORT
           value: '8080'
-        image: vincentjorgensen/node-helloworld:0.0.5
+        image: vincentjorgensen/node-helloworld:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -233,7 +233,7 @@ spec:
           value: us-west-1
         - name: SERVER_PORT
           value: '8080'
-        image: vincentjorgensen/node-helloworld:0.0.5
+        image: vincentjorgensen/node-helloworld:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
